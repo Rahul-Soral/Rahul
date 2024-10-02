@@ -39,16 +39,15 @@ export default function Portfolio() {
     }
   }, [])
 
- 
-  const fadeInUp: Variants = {
-  initial: { opacity: 0, y: 60 },
-  animate: { 
-    opacity: 1, 
-    y: 0,
-    transition: { duration: 0.6 } // Move transition inside animate
-  }
-}
 
+  const fadeInUp: Variants = {
+    initial: { opacity: 0, y: 60 },
+    animate: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.6 }
+    }
+  }
 
   const projects: Project[] = [
     {
@@ -146,56 +145,64 @@ export default function Portfolio() {
 
       {/* Header */}
       <header className="sticky top-0 z-10 backdrop-blur-md bg-white/80 text-gray-900 shadow-md">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <Link className="flex items-center justify-center" href="#">
-            <span className="font-bold text-2xl">Rahul Soral</span>
-          </Link>
-          <nav className="hidden md:flex gap-6">
-            {navItems.map((item) => (
-              <Link
-                key={item}
-                className="text-sm font-medium hover:text-teal-600 transition-colors"
-                href={`#${item.toLowerCase()}`}
-              >
-                {item}
-              </Link>
-            ))}
-            <Button variant="outlined" size="small" className="ml-4 text-teal-600 border-teal-600">
-              <Download className="mr-2 h-4 w-4" /> Resume
-            </Button>
-          </nav>
-          <div className="md:hidden">
-            <Button
-              variant="outlined"
-              size="small"
-              className="text-teal-600 border-teal-600"
-              onClick={handleClick}
-            >
-              <Menu className="h-[1.2rem] w-[1.2rem]" />
-            </Button>
-            <MuiMenu
-              anchorEl={anchorEl}
-              open={open}
-              onClose={handleClose}
-              PaperProps={{
-                style: {
-                  backgroundColor: 'rgb(240 253 250)', 
-                  border: '1px solid rgb(125 211 252)', 
-                },
-              }}
-            >
-              {navItems.map((item) => (
-                <MenuItem key={item} onClick={handleClose} className="text-teal-800 hover:bg-teal-200">
-                  <Link href={`#${item.toLowerCase()}`}>{item}</Link>
-                </MenuItem>
-              ))}
-              <MenuItem onClick={handleClose} className="text-teal-800 hover:bg-teal-200">
-                <Link href="/resume.pdf" download>Download Resume</Link>
-              </MenuItem>
-            </MuiMenu>
-          </div>
-        </div>
-      </header>
+  <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+    <Link className="flex items-center justify-center" href="#">
+      <span className="font-bold text-2xl">Rahul Soral</span>
+    </Link>
+    <nav className="hidden md:flex gap-6">
+      {navItems.map((item) => (
+        <Link
+          key={item}
+          className="text-sm font-medium hover:text-teal-600 transition-colors"
+          href={`#${item.toLowerCase()}`}
+        >
+          {item}
+        </Link>
+      ))}
+      <a
+        href="https://drive.google.com/file/d/1rMXPGb4kMmMDDm7LfTCr7zuj4D1S1edq/view?usp=sharing"
+        className="ml-4 text-teal-600 border-teal-600 hover:bg-teal-600 hover:text-white transition-all px-4 py-2 rounded-md border inline-flex items-center"
+        download="Rahul_Soral_Resume.pdf" target='blank'
+      >
+        <Download className="mr-2 h-4 w-4" /> Download Resume
+      </a>
+    </nav>
+    <div className="md:hidden">
+      <Button
+        variant="outlined"
+        size="small"
+        className="text-teal-600 border-teal-600"
+        onClick={handleClick}
+      >
+        <Menu className="h-[1.2rem] w-[1.2rem]" />
+      </Button>
+      <MuiMenu
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        PaperProps={{
+          style: {
+            backgroundColor: 'rgb(240 253 250)', 
+            border: '1px solid rgb(125 211 252)', 
+          },
+        }}
+      >
+        {navItems.map((item) => (
+          <MenuItem key={item} onClick={handleClose} className="text-teal-800 hover:bg-teal-200">
+            <Link href={`#${item.toLowerCase()}`}>{item}</Link>
+          </MenuItem>
+        ))}
+        <MenuItem onClick={handleClose} className="text-teal-800 hover:bg-teal-200">
+          <a href="https://drive.google.com/file/d/1rMXPGb4kMmMDDm7LfTCr7zuj4D1S1edq/view?usp=sharing" download="Rahul_Soral_Resume.pdf" className="flex items-center">
+            <Download className="mr-2 h-4 w-4" /> Download Resume
+          </a>
+        </MenuItem>
+      </MuiMenu>
+    </div>
+  </div>
+</header>
+
+
 
       {/* About Section */}
       <main className="container mx-auto px-4 py-8">
@@ -224,13 +231,15 @@ export default function Portfolio() {
               </p>
             </div>
             <div className="flex flex-wrap justify-center gap-4">
-              <a href="mailto:rahul.soral@example.com" className="inline-flex">
+              <a href="mailto:rahulsoral15@gmail.com" className="inline-flex">
                 <Button variant="contained" className="bg-teal-600  hover:bg-teal-700 ">
                   <Mail className="mr-2 h-5 w-5" /> Contact Me
                 </Button>
               </a>
               <Button variant="outlined" className="text-teal-600 border-teal-600">
+                <a href="https://drive.google.com/file/d/1rMXPGb4kMmMDDm7LfTCr7zuj4D1S1edq/view?usp=sharing" target='blank'>
                 <Download className="mr-2 h-4 w-4" /> Download Resume
+                </a>
               </Button>
             </div>
           </div>
@@ -315,21 +324,48 @@ export default function Portfolio() {
           variants={fadeInUp}
         >
           <div className="flex flex-col items-center space-y-8 text-center">
-            <h2 className="text-3xl font-bold text-black">Get in Touch</h2>
-            <p className="text-lg text-black">I'd love to hear from you! Feel free to reach out through any of the platforms below.</p>
-            <div className="space-y-4">
-              <div className="text-sm text-black flex items-center justify-center gap-4">
-                <Phone className="h-5 w-5" /> +1 (123) 456-7890
-              </div>
-              <div className="text-sm text-black flex items-center justify-center gap-4">
-                <Mail className="h-5 w-5" /> rahul.soral@example.com
-              </div>
-              <div className="text-sm text-black flex items-center justify-center gap-4">
-                <MapPin className="h-5 w-5" /> Kota, Rajasthan
-              </div>
-            </div>
-            <p className="text-black">You are currently <span className="font-bold text-gray-700">{getDistanceFromLots()}</span> away from Kota, Rajasthan.</p>
-          </div>
+  <h2 className="text-4xl font-bold text-gray-900">Get in Touch</h2>
+  <p className="text-lg text-gray-700">I'd love to hear from you! Feel free to reach out through any of the platforms below.</p>
+
+  <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 w-full max-w-xl">
+    {/* Phone */}
+    <a 
+      href="tel:+918527119684" 
+      className="flex flex-col items-center p-6 bg-teal-100 rounded-lg shadow-lg hover:bg-teal-200 transition-all"
+    >
+      <Phone className="h-8 w-8 text-teal-600 mb-4" />
+      <span className="text-lg font-semibold text-gray-900">Call Me</span>
+      <span className="text-sm text-teal-700">+91 8527119684</span>
+    </a>
+    
+    {/* Email */}
+    <a 
+      href="mailto:rahulsoral15@example.com" 
+      className="flex flex-col items-center p-10 bg-teal-100 rounded-lg shadow-lg hover:bg-teal-200 transition-all"
+    >
+      <Mail className="h-8 w-8 text-teal-600 mb-4" />
+      <span className="text-lg font-semibold text-gray-900">Email Me</span>
+      <span className="text-sm text-teal-700">rahulsoral15@example.com</span>
+    </a>
+    
+    {/* Location */}
+    <a 
+      href="https://www.google.com/maps/search/?api=1&query=Kota%2C+Rajasthan" 
+      target="_blank" 
+      rel="noopener noreferrer" 
+      className="flex flex-col items-center p-6 bg-teal-100 rounded-lg shadow-lg hover:bg-teal-200 transition-all"
+    >
+      <MapPin className="h-8 w-8 text-teal-600 mb-4" />
+      <span className="text-lg font-semibold text-gray-900">Location</span>
+      <span className="text-sm text-teal-700">Kota, Rajasthan</span>
+    </a>
+  </div>
+  
+  <p className="text-black">
+    You are currently <span className="font-bold text-gray-700">{getDistanceFromLots()}</span> away from Kota, Rajasthan.
+  </p>
+</div>
+
         </motion.section>
       </main>
     </div>
