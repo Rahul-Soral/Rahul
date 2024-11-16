@@ -18,7 +18,7 @@ export default function  Header() {
   }
 
   return (
-    <header className="sticky top-0 z-10 backdrop-blur-md bg-white/80 text-gray-900 shadow-md">
+    <header className="sticky top-0 z-10 backdrop-blur-md bg-black text-white shadow-md">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <Link className="flex items-center justify-center" href="#">
           <span className="font-bold text-2xl">Rahul Soral</span>
