@@ -121,19 +121,7 @@ export default function Home() {
         <Header />
         <main className="container mx-auto px-4 py-8">
           {/* About Section */}
-          <section className="mb-20">
-            <motion.h1
-              className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-yellow-500 to-black tracking-tight sm:text-6xl drop-shadow-lg text-center"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8 }}
-            >
-              Welcome to My Portfolio
-            </motion.h1>
-            <p className="mt-4 text-lg text-teal-600 text-center max-w-2xl mx-auto drop-shadow">
-              Explore my work, skills, and ways to connect.
-            </p>
-          </section>
+           
 
           {/* Sections */}
           <About />
