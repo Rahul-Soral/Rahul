@@ -2,142 +2,52 @@ import Image from "next/image";
 import { Button } from "@mui/material";
 import { Mail, Download } from "lucide-react";
 import { motion, Variants } from "framer-motion";
-import { useEffect, useRef } from "react";
 
-// Define Variants interface
-interface MotionVariants {
-  initial: object;
-  animate: object;
+// Define animation variants
+const particleVariants: Variants = {
+  initial: { opacity: 0, scale: 0 },
+  animate: {
+    opacity: 1,
+    scale: 1,
+    x: [0, 100, -100, 50, -50],
+    y: [0, -50, 50, -100, 100],
+    transition: {
+      duration: 5,
+      repeat: Infinity,
+      repeatType: "mirror",
+    },
+  },
+};
 
-}
-
-const fadeInUp: MotionVariants = {
+const fadeInUp: Variants = {
   initial: { opacity: 0, y: 60 },
   animate: { opacity: 1, y: 0, transition: { duration: 0.6 } },
 };
 
-const stagger: MotionVariants = {
+const stagger: Variants = {
   initial: {},
   animate: { transition: { staggerChildren: 0.2 } },
 };
 
-// Define Particle interface
-interface ParticleProps {
-  draw(): unknown;
-  update(): unknown;
-  x: number;
-  y: number;
-  radius: number;
-  color: string;
-  speedX: number;
-  speedY: number;
-}
-
 export default function About() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return; // Ensure canvas is not null
-
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return; // Ensure context is not null
-
-    const particles: ParticleProps[] = [];
-    const particleCount = 50;
-
-    const colors: string[] = [
-      "#34d399",
-      "#3b82f6",
-      "#3b82f2",
-      "#3b81f6",
-      "#f59e0b",
-      "#36cbc6",
-      "#a62ccd",
-      "#a62ccd",
-      "#a62ccd",
-    ];
-
-    const resizeCanvas = () => {
-      if (!canvas) return; // Ensure canvas is not null
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-
-    resizeCanvas();
-    window.addEventListener("resize", resizeCanvas);
-
-    // Particle class
-    class Particle implements ParticleProps {
-      x: number;
-      y: number;
-      radius: number;
-      color: string;
-      speedX: number;
-      speedY: number;
-
-      constructor() {
-        this.x = Math.random() * canvas.width!;
-        this.y = Math.random() * canvas.height!;
-        this.radius = Math.random() * 4 + 1;
-        this.color = colors[Math.floor(Math.random() * colors.length)];
-        this.speedX = Math.random() * 2 - 1;
-        this.speedY = Math.random() * 2 - 1;
-      }
-
-      draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-        ctx.fillStyle = this.color;
-        ctx.fill();
-        ctx.closePath();
-      }
-
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-
-        if (this.x - this.radius < 0 || this.x + this.radius > canvas.width!) {
-          this.speedX *= -1;
-        }
-        if (this.y - this.radius < 0 || this.y + this.radius > canvas.height!) {
-          this.speedY *= -1;
-        }
-      }
-    }
-
-    for (let i = 0; i < particleCount; i++) {
-      particles.push(new Particle());
-    }
-
-    const animate = () => {
-      if (!ctx) return; // Ensure context is not null
-
-      ctx.clearRect(0, 0, canvas.width!, canvas.height!);
-
-      particles.forEach((particle) => {
-        particle.update();
-        particle.draw();
-      });
-
-      requestAnimationFrame(animate);
-    };
-
-    animate();
-
-    return () => {
-      window.removeEventListener("resize", resizeCanvas);
-    };
-  }, []);
-
   return (
     <div className="relative overflow-hidden">
-      {/* Canvas for Particles */}
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 -z-10"
-        style={{ width: "100%", height: "100%", display: "block" }}
-      />
+      {/* Animated Particles */}
+      <div className="absolute inset-0 -z-10">
+        {Array.from({ length: 50 }).map((_, index) => (
+          <motion.div
+            key={index}
+            className="absolute w-4 h-4 bg-gradient-to-r from-teal-400 to-purple-500 rounded-full"
+            style={{
+              top: `${Math.random() * 100}vh`,
+              left: `${Math.random() * 100}vw`,
+            }}
+            variants={particleVariants}
+            initial="initial"
+            animate="animate"
+          />
+        ))}
+      </div>
 
       {/* Moving Blurred Background Elements */}
       <div className="absolute inset-0 -z-10">
@@ -193,7 +103,6 @@ export default function About() {
             >
               Hi, I'm Rahul Soral
             </h1>
-
             <p className="text-xl text-teal-600 max-w-2xl mx-auto lg:mx-0 drop-shadow">
               A passionate developer creating amazing web experiences. I
               specialize in React, Next.js, and modern web technologies.
