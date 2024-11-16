@@ -8,17 +8,18 @@ import Skills from "@/components/Skills";
 import Contact from "@/components/Contact";
 import { getDistanceFromLots } from "@/utils/calculateDistance";
 import { motion } from "framer-motion";
+import Experience from "@/components/Experience";
+import { IOptions, Engine, RecursivePartial } from "tsparticles-engine";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
-import { Engine } from "tsparticles-engine";
-import Experience from "@/components/Experience";
+
 
 export default function Home() {
   const particlesInit = async (main: Engine) => {
     await loadFull(main);
   };
 
-  const particlesOptions = {
+  const particlesOptions: RecursivePartial<IOptions> = {
     particles: {
       number: { value: 5 },
       color: { value: ["#34d399", "#3b82f6", "#f59e0b", "#36cbc6", "#a62ccd"] },
@@ -35,7 +36,7 @@ export default function Home() {
       },
     },
     interactivity: {
-      detectsOn: "canvas",
+      detectsOn: "canvas", // Valid value
       events: {
         onHover: { enable: true, mode: "repulse" },
         onClick: { enable: true, mode: "push" },
@@ -47,6 +48,7 @@ export default function Home() {
     },
     fullScreen: false,
   };
+  
 
   const [userLocation, setUserLocation] = useState<[number, number] | null>(null);
   const [distance, setDistance] = useState("Unknown");
